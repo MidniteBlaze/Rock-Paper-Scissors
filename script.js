@@ -1,12 +1,12 @@
 let wins = 0;
 let losses = 0;
+let tie = 0;
 
-function getComputerChoice() {
-    let computerChoice = Math.floor(Math.random() * 3);
-
-    if (computerChoice === 0) {
+function getComputerChoice(){
+    let cpu = Math.floor(Math.random() * 3)
+    if (cpu === 0){
         return "rock";
-    } else if (computerChoice === 1) {
+    } else if (cpu === 1){
         return "paper";
     } else {
         return "scissors"
@@ -14,55 +14,51 @@ function getComputerChoice() {
 }
 
 function getHumanChoice(){
-    let humanChoice = prompt("Type rock, paper, or scissors");
-    humanChoice = humanChoice.toLowerCase();
-
-    if (humanChoice === "rock" || humanChoice === "paper" || humanChoice === "scissors") {
-        return humanChoice;
+    let user = prompt("Type rock, paper, or scissors.")
+    user = user.toLowerCase()
+    if (user === "rock" || user === "paper" || user === "scissors"){
+        return user;
     } else {
-        alert("Invalid response. Please type rock, paper, or scissors.");
-        return getHumanChoice();
+        alert("Invalid choice.")
+        return getHumanChoice()
     }
-
 }
 
-function playRound(humanChoice, computerChoice) {
-    
-    if (humanChoice === computerChoice) {
-        console.log("Its a tie!");
+function playRound(user, cpu){
+    if(user === cpu){
+        tie++
+        console.log("Its a tie")
     } else if (
-        (humanChoice === "rock" && computerChoice === "scissors") ||
-        (humanChoice === "paper" && computerChoice === "rock") ||
-        (humanChoice === "scissors" && computerChoice === "paper")
-    ) {
+        (user === "rock" && cpu === "scissors") ||
+        (user === "paper" && cpu === "rock") ||
+        (user === "scissors" && cpu === "paper")
+    ){
         wins++
-        console.log(`You win! ${humanChoice} beats ${computerChoice}!`);
+        console.log(`You win! ${user} beats ${cpu}`)
     } else {
         losses++
-        console.log(`You lose. ${computerChoice} beats ${humanChoice}.`)
+        console.log(`You lose. ${cpu} beats ${user}`)
     }
 }
 
-function game() {
+function game(){
     wins = 0;
     losses = 0;
-
-    for (i = 0; i < 5; i++) {
-        let humanChoice = getHumanChoice();
-        let computerChoice = getComputerChoice();
-        playRound(humanChoice, computerChoice);
-        console.log(`Round ${i+1} complete!`);
+    tie = 0
+    for(let i = 0; i < 5; i++){
+        let humanChoice = getHumanChoice()
+        let computerChoice = getComputerChoice()
+        playRound(humanChoice, computerChoice)
+        console.log(`Round ${i+1} complete!`)
     }
-
-    console.log(`Game over. Final score: Wins: ${wins} Losses: ${losses}`)
-
-    if (wins > losses) {
-        console.log("Congratz! You win the game!");
-    } else if (losses > wins) {
-        console.log("You lost the game . Try again.")
+    console.log("Game Over.")
+    if (wins > losses){
+        console.log(`You win the game! ${wins} to ${losses}.`)
+    } else if (wins < losses){
+        console.log(`You lose. ${wins} to ${losses}.`)
     } else {
-        console.log("Draw!")
+        console.log("Draw.")
     }
 }
 
-game();
+game()
